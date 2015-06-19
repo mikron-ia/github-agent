@@ -1,6 +1,6 @@
 <?php
 
-namespace FP\Larmo\GHAgent;
+namespace FP\Larmo\Agents\WebHookAgent;
 
 class Request {
     public static function isPostMethod() {
@@ -11,35 +11,21 @@ class Request {
         return false;
     }
 
-    public static function getMessage() {
+    public static function getUri() {
+        return $_SERVER["REQUEST_URI"];
+    }
+
+    public static function getPostData() {
         return file_get_contents('php://input');
     }
 
-    public static function getEventType() {
-        foreach (self::getHeaders() as $name => $value) {
-            if($name === 'X-GitHub-Event') {
-                return $value;
+    public static function getValueFromHeaderByKey($key) {
+        foreach($_SERVER as $headerKey => $headerValue) {
+            if($key === $headerKey) {
+                return $headerValue;
             }
         }
 
-        return null;
-    }
-
-    private static function getHeaders() {
-        if(function_exists('getallheaders')) {
-            return getallheaders();
-        } else {
-            $headers = '';
-
-            foreach ($_SERVER as $name => $value)
-            {
-                if (substr($name, 0, 5) == 'HTTP_')
-                {
-                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-                }
-            }
-
-            return $headers;
-        }
+        return true;
     }
 }

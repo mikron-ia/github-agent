@@ -1,10 +1,10 @@
 <?php
 
-namespace FP\Larmo\GHAgent\Events;
+namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-use FP\Larmo\GHAgent\Event;
+use FP\Larmo\Agents\WebHookAgent\Services\Github\EventInterface;
 
-class Push implements Event {
+class Push implements EventInterface {
     private $messages;
 
     public function __construct($data) {
@@ -15,8 +15,7 @@ class Push implements Event {
         return $this->messages;
     }
 
-    private function prepareMessages($data) {
-        $dataObject = json_decode($data);
+    private function prepareMessages($dataObject) {
         $messages = array();
 
         foreach($dataObject->commits as $commit) {
