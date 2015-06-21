@@ -20,14 +20,18 @@ class GithubData implements ServiceDataInterface {
             switch($eventType) {
                 case "push":
                     $event = new Events\Push($data);
-                    $messages = $event->getMessages();
                     break;
+
+                case "commit_comment":
+                    $event = new Events\CommitComment($data);
+                    break;
+
                 default:
                     throw new \InvalidArgumentException;
                     break;
             }
 
-            return $messages;
+            return $event->getMessages();
         }
 
         throw new \InvalidArgumentException;

@@ -2,20 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-use FP\Larmo\Agents\WebHookAgent\Services\Github\EventInterface;
+class Push extends EventAbstract {
 
-class Push implements EventInterface {
-    private $messages;
-
-    public function __construct($data) {
-        $this->messages = $this->prepareMessages($data);
-    }
-
-    public function getMessages() {
-        return $this->messages;
-    }
-
-    private function prepareMessages($dataObject) {
+    protected function prepareMessages($dataObject) {
         $messages = array();
 
         foreach($dataObject->commits as $commit) {
@@ -25,7 +14,7 @@ class Push implements EventInterface {
         return $messages;
     }
 
-    private function getArrayFromCommit($commit) {
+    protected function getArrayFromCommit($commit) {
         return array(
             'type' => 'commit',
             'timestamp' => $commit->timestamp,
@@ -47,4 +36,5 @@ class Push implements EventInterface {
             )
         );
     }
+
 }
