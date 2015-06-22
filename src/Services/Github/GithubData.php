@@ -8,8 +8,10 @@ use FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
 class GithubData implements ServiceDataInterface {
     private $data;
+    private $serviceName;
 
     public function __construct($data) {
+        $this->serviceName = 'github';
         $this->data = $this->prepareData($data);
     }
 
@@ -39,5 +41,9 @@ class GithubData implements ServiceDataInterface {
 
     public function getData() {
         return $this->data;
+    }
+
+    public function getServiceName() {
+        return $this->serviceName;
     }
 }
