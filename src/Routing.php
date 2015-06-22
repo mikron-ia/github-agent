@@ -1,22 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mlabedowicz
- * Date: 2015-06-19
- * Time: 16:22
- */
 
 namespace FP\Larmo\Agents\WebHookAgent;
 
 class Routing
 {
     private $uri;
-    private $message;
 
-    public function __construct($uri, $message)
+    public function __construct($uri)
     {
         $this->uri = $uri;
-        $this->message = $message;
     }
 
     public function getSourceIdentifier()
@@ -39,26 +31,5 @@ class Routing
         }
 
         return $finalUriSegment;
-    }
-
-    public function getService()
-    {
-        $sourceIdentifier = $this->getSourceIdentifier();
-
-        try {
-            switch ($sourceIdentifier) {
-                case 'github':
-                    $service = new Services\Github\GithubData($this->message);
-                    break;
-                default:
-                    $service = null;
-                    break;
-            }
-        } catch (Exception $e) {
-            file_put_contents("php://stderr", $e->getMessage());
-            $service = null;
-        }
-
-        return $service;
     }
 }
