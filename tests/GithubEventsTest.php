@@ -3,6 +3,8 @@
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Push;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\CommitComment;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\PullRequest;
+use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Issue;
+use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\IssueComment;
 
 class GithubEventsTest extends PHPUnit_Framework_TestCase
 {
@@ -51,6 +53,28 @@ class GithubEventsTest extends PHPUnit_Framework_TestCase
         $expectedResult = json_decode($this->loadFile('OutputData/github-pull_request.json'), true);
 
         $this->assertEquals($expectedResult, $pullRequest->getMessages());
+    }
+
+    /**
+     * @test
+     */
+    public function issueEventReturnsCorrectData()
+    {
+        $issue = new Issue($this->getDataObjectFromJson('InputData/github-issue.json'));
+        $expectedResult = json_decode($this->loadFile('OutputData/github-issue.json'), true);
+
+        $this->assertEquals($expectedResult, $issue->getMessages());
+    }
+
+    /**
+     * @test
+     */
+    public function issueCommentEventReturnsCorrectData()
+    {
+        $issueComment = new IssueComment($this->getDataObjectFromJson('InputData/github-issue_comment.json'));
+        $expectedResult = json_decode($this->loadFile('OutputData/github-issue_comment.json'), true);
+
+        $this->assertEquals($expectedResult, $issueComment->getMessages());
     }
 }
 

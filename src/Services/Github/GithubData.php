@@ -23,12 +23,23 @@ class GithubData implements ServiceDataInterface
 
         if ($eventType) {
             switch ($eventType) {
-                case "push":
+                case 'push':
                     $event = new Events\Push($data);
                     break;
 
-                case "commit_comment":
+                case 'commit_comment':
                     $event = new Events\CommitComment($data);
+                    break;
+
+                case 'pull_request':
+                    $event = new Events\PullRequest($data);
+                    break;
+
+                case 'issues':
+                    $event = new Events\Issue($data);
+                    break;
+
+                case 'issue_comment':
                     break;
 
                 default:
