@@ -21,7 +21,7 @@ if (Request::isPostMethod()) {
     }
 
     try {
-        $packet = new Packet($service->getData());
+        $packet = new Packet($service);
         $packet->send();
     } catch (InvalidArgumentException $e) {
         http_response_code(404);
