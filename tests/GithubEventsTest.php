@@ -2,6 +2,7 @@
 
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Push;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\CommitComment;
+use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\PullRequest;
 
 class GithubEventsTest extends PHPUnit_Framework_TestCase
 {
@@ -39,6 +40,17 @@ class GithubEventsTest extends PHPUnit_Framework_TestCase
         $expectedResult = json_decode($this->loadFile('OutputData/github-commit_comment.json'), true);
 
         $this->assertEquals($expectedResult, $commitComment->getMessages());
+    }
+
+    /**
+     * @test
+     */
+    public function pullRequestEventReturnsCorrectData()
+    {
+        $pullRequest = new PullRequest($this->getDataObjectFromJson('InputData/github-pull_request.json'));
+        $expectedResult = json_decode($this->loadFile('OutputData/github-pull_request.json'), true);
+
+        $this->assertEquals($expectedResult, $pullRequest->getMessages());
     }
 }
 
