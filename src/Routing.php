@@ -47,8 +47,11 @@ class Routing
 
         try {
             switch ($sourceIdentifier) {
-                case 'github':
+                case "github":
                     $service = new Services\Github\GithubData($this->message);
+                    break;
+                case "bitbucket":
+                    $service = new Services\Bitbucket\BitbucketData($this->message);
                     break;
                 default:
                     $service = null;
