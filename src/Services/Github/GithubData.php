@@ -6,20 +6,23 @@ use FP\Larmo\Agents\WebHookAgent\Request;
 use FP\Larmo\Agents\WebHookAgent\Services\ServiceDataInterface;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class GithubData implements ServiceDataInterface {
+class GithubData implements ServiceDataInterface
+{
     private $data;
     private $serviceName;
 
-    public function __construct($data) {
+    public function __construct($data)
+    {
         $this->serviceName = 'github';
         $this->data = $this->prepareData($data);
     }
 
-    private function prepareData($data) {
+    private function prepareData($data)
+    {
         $eventType = strtolower(Request::getValueFromHeaderByKey("HTTP_X_GITHUB_EVENT"));
 
-        if($eventType) {
-            switch($eventType) {
+        if ($eventType) {
+            switch ($eventType) {
                 case "push":
                     $event = new Events\Push($data);
                     break;
@@ -39,11 +42,13 @@ class GithubData implements ServiceDataInterface {
         throw new \InvalidArgumentException;
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
-    public function getServiceName() {
+    public function getServiceName()
+    {
         return $this->serviceName;
     }
 }

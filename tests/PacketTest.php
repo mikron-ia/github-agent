@@ -1,12 +1,14 @@
 <?php
 
-use FP\Larmo\GHAgent\Packet;
+use FP\Larmo\Agents\WebHookAgent\Packet;
 
-class PacketTest extends PHPUnit_Framework_TestCase {
+class PacketTest extends PHPUnit_Framework_TestCase
+{
     private $message;
 
-    public function setup() {
+    public function setup()
+    {
         $this->message = "";
-        $this->packet = new Packet('push', $this->message);
+        $this->packet = new Packet($this->message);
     }
 }
