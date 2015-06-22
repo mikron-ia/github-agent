@@ -2,14 +2,16 @@
 
 namespace FP\Larmo\Agents\WebHookAgent;
 
+use FP\Larmo\Agents\WebHookAgent\Services\ServiceDataInterface;
+
 class Packet {
     private $messages;
     private $metadata;
     private $packetArray;
 
-    public function __construct($messages) {
-        $this->metadata = new Metadata();
-        $this->messages = $messages;
+    public function __construct(ServiceDataInterface $service) {
+        $this->metadata = new Metadata($service->getServiceName());
+        $this->messages = $service->getData();
         $this->packetArray = $this->preparePacket();
     }
 

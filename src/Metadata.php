@@ -7,9 +7,9 @@ class Metadata {
     private $source;
     private $authinfo;
 
-    public function __construct($timestamp = null) {
+    public function __construct($source, $timestamp = null) {
         $this->timestamp = $timestamp ? $timestamp : time();
-        $this->source = "github";
+        $this->source = $source;
         $this->authinfo = "AUTH";
     }
 
