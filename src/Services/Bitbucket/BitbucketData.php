@@ -5,6 +5,7 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket;
 use FP\Larmo\Agents\WebHookAgent\Request;
 use FP\Larmo\Agents\WebHookAgent\Services\ServiceDataInterface;
 use FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
+use FP\Larmo\Agents\WebHookAgent\Exceptions\EventTypeNotFoundException;
 
 class BitbucketData implements ServiceDataInterface
 {
@@ -28,7 +29,7 @@ class BitbucketData implements ServiceDataInterface
                     $messages = $event->getMessages();
                     break;
                 default:
-                    throw new \InvalidArgumentException;
+                    throw new EventTypeNotFoundException;
                     break;
             }
 
