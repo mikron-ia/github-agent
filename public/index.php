@@ -15,7 +15,8 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\EventTypeNotFoundException;
 header('Content-type: application/json; charset=utf-8');
 
 try {
-    $request = new Request();
+    $input = file_get_contents('php://input');
+    $request = new Request($_SERVER, $input);
 
     if (!$request->isPostMethod()) {
         throw new MethodNotAllowedHttpException;

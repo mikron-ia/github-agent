@@ -9,9 +9,10 @@ class Request
     private $server;
     private $payload;
 
-    public function __construct() {
-        $this->server = $_SERVER;
-        $this->payload = file_get_contents('php://input');
+    public function __construct(array $server, $payload = "")
+    {
+        $this->server = $server;
+        $this->payload = $payload;
     }
 
     public function isPostMethod()
@@ -21,7 +22,7 @@ class Request
 
     public function getUri()
     {
-        return $this->server["REQUEST_URI"];
+        return $this->server['REQUEST_URI'];
     }
 
     public function getPayload()
