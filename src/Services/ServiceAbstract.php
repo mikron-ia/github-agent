@@ -2,7 +2,7 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services;
 
-abstract class ServiceAbstract {
+abstract class ServiceAbstract implements ServiceDataInterface {
     protected $data;
     protected $serviceName;
     protected $eventHeader;
