@@ -1,7 +1,6 @@
 <?php
 
 use FP\Larmo\Agents\WebHookAgent\Routing;
-use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubData;
 
 class RoutingTest extends PHPUnit_Framework_TestCase
 {
