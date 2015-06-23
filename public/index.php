@@ -5,30 +5,34 @@ require_once('../vendor/autoload.php');
 use FP\Larmo\Agents\WebHookAgent\Packet;
 use FP\Larmo\Agents\WebHookAgent\Request;
 use FP\Larmo\Agents\WebHookAgent\Routing;
+use FP\Larmo\Agents\WebHookAgent\Metadata;
 use FP\Larmo\Agents\WebHookAgent\Services;
 use FP\Larmo\Agents\WebHookAgent\Services\ServiceFactory;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\MethodNotAllowedHttpException;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\ServiceNotFoundException;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\EventTypeNotFoundException;
 
-header("Content-type: application/json; charset=utf-8");
+header('Content-type: application/json; charset=utf-8');
 
 try {
-    if (!Request::isPostMethod()) {
+    $request = new Request();
+
+    if (!$request->isPostMethod()) {
         throw new MethodNotAllowedHttpException;
     }
 
     /* Retrieve data from HTTP request */
-    $uri = Request::getUri();
-    $postData = Request::getPostData();
-    $decodedPostData = Request::decodePostData($postData);
+    $uri = $request->getUri();
 
     /* Create appropriate service */
     $routing = new Routing($uri);
-    $service = ServiceFactory::create($routing->getSourceIdentifier(),$decodedPostData);
+    $service = ServiceFactory::create($routing->getSourceIdentifier(), $request);
+
+    /* Create metadata (header for packet) */
+    $metadata = new Metadata($service->getServiceName());
 
     /* Create and send packet */
-    $packet = new Packet($service);
+    $packet = new Packet($metadata, $service);
     $packet->send();
 } catch (MethodNotAllowedHttpException $e) {
     http_response_code(405); // POST only allowed
