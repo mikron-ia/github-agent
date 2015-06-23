@@ -4,33 +4,31 @@ namespace FP\Larmo\Agents\WebHookAgent;
 
 class Request
 {
-    public static function isPostMethod()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            return true;
-        }
+    private $server;
+    private $payload;
 
-        return false;
+    public function __construct() {
+        $this->server = $_SERVER;
+        $this->payload = file_get_contents('php://input');
     }
 
-    public static function getUri()
+    public function isPostMethod()
     {
-        return $_SERVER["REQUEST_URI"];
+        return $this->server['REQUEST_METHOD'] === 'POST';
     }
 
-    public static function getPostData()
+    public function getUri()
     {
-        return file_get_contents('php://input');
+        return $this->server["REQUEST_URI"];
     }
 
-    public static function getValueFromHeaderByKey($key)
+    public function getPayload()
     {
-        foreach ($_SERVER as $headerKey => $headerValue) {
-            if ($key === $headerKey) {
-                return $headerValue;
-            }
-        }
+        return $this->payload;
+    }
 
-        return true;
+    public function getValueFromHeaderByKey($key)
+    {
+        return array_key_exists($key, $this->server) ? $this->server[$key] : false;
     }
 }
