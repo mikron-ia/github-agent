@@ -6,7 +6,6 @@ use FP\Larmo\Agents\WebHookAgent\Packet;
 use FP\Larmo\Agents\WebHookAgent\Request;
 use FP\Larmo\Agents\WebHookAgent\Routing;
 use FP\Larmo\Agents\WebHookAgent\Services;
-use FP\Larmo\Agents\WebHookAgent\Metadata;
 use FP\Larmo\Agents\WebHookAgent\Services\ServiceFactory;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\MethodNotAllowedHttpException;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\ServiceNotFoundException;
@@ -23,11 +22,11 @@ try {
 
     /* Retrieve data from HTTP request */
     $uri = $request->getUri();
-    $postData = json_decode($request->getPayload());
+    $payloadData = $request->getDecodedPayload();
 
     /* Create appropriate service */
     $routing = new Routing($uri);
-    $service = ServiceFactory::create($routing->getSourceIdentifier(), $postData);
+    $service = ServiceFactory::create($routing->getSourceIdentifier(), payloadData);
 
     /* Create metadata (header for packet) */
     $metadata = new Metadata($service->getServiceName());
@@ -37,6 +36,8 @@ try {
     $packet->send();
 } catch (MethodNotAllowedHttpException $e) {
     http_response_code(405); // POST only allowed
+} catch (InvalidIncomingDataException $e) {
+    http_response_code(400); // Data are incorrect
 } catch (EventTypeNotFoundException $e) {
     http_response_code(400); // We got an event type we are not prepared to handle
 } catch (ServiceNotFoundException $e) {

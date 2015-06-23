@@ -2,6 +2,8 @@
 
 namespace FP\Larmo\Agents\WebHookAgent;
 
+use FP\Larmo\Agents\WebHookAgent\Exceptions\InvalidIncomingDataException;
+
 class Request
 {
     private $server;
@@ -25,6 +27,17 @@ class Request
     public function getPayload()
     {
         return $this->payload;
+    }
+    
+    public function getDecodedPayload()
+    {
+        $decodedData = json_decode($this->payload);
+
+        if ($decodedData === null) {
+            throw new InvalidIncomingDataException;
+        } else {
+            return $decodedData;
+        }
     }
 
     public function getValueFromHeaderByKey($key)
