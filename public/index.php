@@ -5,6 +5,7 @@ require_once('../vendor/autoload.php');
 use FP\Larmo\Agents\WebHookAgent\Packet;
 use FP\Larmo\Agents\WebHookAgent\Request;
 use FP\Larmo\Agents\WebHookAgent\Routing;
+use FP\Larmo\Agents\WebHookAgent\Metadata;
 use FP\Larmo\Agents\WebHookAgent\Services;
 use FP\Larmo\Agents\WebHookAgent\Services\ServiceFactory;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\MethodNotAllowedHttpException;
@@ -22,11 +23,10 @@ try {
 
     /* Retrieve data from HTTP request */
     $uri = $request->getUri();
-    $payloadData = $request->getDecodedPayload();
 
     /* Create appropriate service */
     $routing = new Routing($uri);
-    $service = ServiceFactory::create($routing->getSourceIdentifier(), payloadData);
+    $service = ServiceFactory::create($routing->getSourceIdentifier(), $request);
 
     /* Create metadata (header for packet) */
     $metadata = new Metadata($service->getServiceName());

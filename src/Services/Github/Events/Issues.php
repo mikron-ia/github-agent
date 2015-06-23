@@ -2,7 +2,7 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Issue extends EventAbstract
+class Issues extends EventAbstract
 {
     protected function prepareMessages($dataObject)
     {

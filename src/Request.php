@@ -28,7 +28,7 @@ class Request
     {
         return $this->payload;
     }
-    
+
     public function getDecodedPayload()
     {
         $decodedData = json_decode($this->payload);
@@ -40,8 +40,8 @@ class Request
         }
     }
 
-    public function getValueFromHeaderByKey($key)
+    public function getHeaders()
     {
-        return array_key_exists($key, $this->server) ? $this->server[$key] : false;
+        return $this->server;
     }
 }
