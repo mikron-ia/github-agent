@@ -6,28 +6,32 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\InvalidIncomingDataException;
 
 class Request
 {
-    public static function isPostMethod()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            return true;
-        } else {
-            return false;
-        }
+    private $server;
+    private $payload;
+
+    public function __construct() {
+        $this->server = $_SERVER;
+        $this->payload = file_get_contents('php://input');
     }
 
-    public static function getUri()
+    public function isPostMethod()
     {
-        return $_SERVER["REQUEST_URI"];
+        return $this->server['REQUEST_METHOD'] === 'POST';
     }
 
-    public static function getPostData()
+    public function getUri()
     {
-        return file_get_contents('php://input');
+        return $this->server["REQUEST_URI"];
     }
 
-    public static function decodePostData($data)
+    public function getPayload()
     {
-        $decodedData = json_decode($data);
+        return $this->payload;
+    }
+
+    public function getDecodedPayload()
+    {
+        $decodedData = json_decode($this->payload);
 
         if ($decodedData === null) {
             throw new InvalidIncomingDataException;
@@ -36,14 +40,8 @@ class Request
         }
     }
 
-    public static function getValueFromHeaderByKey($key)
+    public function getHeaders()
     {
-        foreach ($_SERVER as $headerKey => $headerValue) {
-            if ($key === $headerKey) {
-                return $headerValue;
-            }
-        }
-
-        return true;
+        return $this->server;
     }
 }

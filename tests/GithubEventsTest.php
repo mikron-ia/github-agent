@@ -3,7 +3,7 @@
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Push;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\CommitComment;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\PullRequest;
-use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Issue;
+use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Issues;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\IssueComment;
 
 class GithubEventsTest extends PHPUnit_Framework_TestCase
@@ -60,7 +60,7 @@ class GithubEventsTest extends PHPUnit_Framework_TestCase
      */
     public function issueEventReturnsCorrectData()
     {
-        $issue = new Issue($this->getDataObjectFromJson('InputData/github-issue.json'));
+        $issue = new Issues($this->getDataObjectFromJson('InputData/github-issue.json'));
         $expectedResult = json_decode($this->loadFile('OutputData/github-issue.json'), true);
 
         $this->assertEquals($expectedResult, $issue->getMessages());

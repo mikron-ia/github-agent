@@ -13,7 +13,7 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\ServiceNotFoundException;
 
 class ServiceFactory
 {
-    static public function create($serviceName, $data)
+    static public function create($serviceName, $request)
     {
         try {
             /* Caution: full namespace path is necessary for class_exists() to work correctly */
@@ -22,7 +22,7 @@ class ServiceFactory
             if (!class_exists($serviceClass)) {
                 throw new ServiceNotFoundException;
             } else {
-                return new $serviceClass($data);
+                return new $serviceClass($request->getDecodedPayload(), $request->getHeaders());
             }
         } catch (EventTypeNotFoundException $e) {
             throw new EventTypeNotFoundException;
