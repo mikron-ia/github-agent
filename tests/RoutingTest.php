@@ -26,6 +26,15 @@ class RoutingTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function identifierIsExtractedCorrectlyWithHttps()
+    {
+        $routing = new Routing("https://localhost/agents/github", "", "push");
+        $this->assertEquals("github",$routing->getSourceIdentifier());
+    }
+
+    /**
+     * @test
+     */
     public function identifierIsEmptyIfUriIsEmpty()
     {
         $routing = new Routing("", "", "push");
