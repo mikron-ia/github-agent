@@ -12,7 +12,7 @@ class PacketTest extends PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_X_GITHUB_EVENT'] = 'push';
         $service = new GithubData($this->getDataObjectFromJson(), $_SERVER);
-        $metadata = new Metadata($service->getServiceName(),"AUTHENTICATION_KEY");
+        $metadata = new Metadata($service->getServiceName(), "AUTHENTICATION_KEY");
         $this->packet = new Packet($metadata, $service);
     }
 
