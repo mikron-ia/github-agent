@@ -24,6 +24,11 @@ class Packet
         );
     }
 
+    public function getPacket()
+    {
+        return $this->packetArray;
+    }
+
     public function send($uri)
     {
         $packetJson = json_encode($this->packetArray);
