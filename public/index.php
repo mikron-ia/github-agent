@@ -14,7 +14,7 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\InvalidIncomingDataException;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\MethodNotAllowedHttpException;
 use FP\Larmo\Agents\WebHookAgent\Exceptions\ServiceNotFoundException;
 
-require_once('/../config/config.php');
+require_once('../config/config.php');
 
 header('Content-type: application/json; charset=utf-8');
 
@@ -55,4 +55,6 @@ try {
 } catch (Exception $e) {
     /* Unpredicted error */
     trigger_error($e->getMessage(), E_USER_WARNING);
+} finally {
+    json_encode(array('message' => 'Output'));
 }
