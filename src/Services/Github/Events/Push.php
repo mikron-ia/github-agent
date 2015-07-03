@@ -26,7 +26,7 @@ class Push extends EventAbstract
                 'email' => $commit->author->email,
                 'login' => $commit->author->username
             ),
-            'message' => $commit->author->name . ' added commit: "' . $commit->message . '"',
+            'body' => $commit->author->name . ' added commit: "' . $commit->message . '"',
             'extras' => array(
                 'id' => $commit->id,
                 'files' => array(
@@ -34,7 +34,7 @@ class Push extends EventAbstract
                     'removed' => $commit->removed,
                     'modified' => $commit->modified
                 ),
-                'message' => $commit->message,
+                'body' => $commit->message,
                 'url' => $commit->url
             )
         );
