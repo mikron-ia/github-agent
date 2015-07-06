@@ -15,7 +15,7 @@ class CommitComment extends EventAbstract
             'author' => array(
                 'login' => $comment->user->login
             ),
-            'body' => $comment->user->login . ' created commit comment',
+            'body' => 'created commit comment',
             'extras' => array(
                 'id' => $comment->id,
                 'body' => $comment->body,

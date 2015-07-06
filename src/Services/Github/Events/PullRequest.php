@@ -14,7 +14,7 @@ class PullRequest extends EventAbstract
             'author' => array(
                 'login' => $pullRequest->user->login
             ),
-            'body' => $pullRequest->user->login . ' ' . $dataObject->action . ' pull request',
+            'body' => $dataObject->action . ' pull request',
             'extras' => array(
                 'id' => $pullRequest->id,
                 'number' => $pullRequest->number,
