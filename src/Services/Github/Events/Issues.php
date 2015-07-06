@@ -14,7 +14,7 @@ class Issues extends EventAbstract
             'author' => array(
                 'login' => $issue->user->login
             ),
-            'body' => $issue->user->login . ' ' . $dataObject->action . ' issue',
+            'body' => $dataObject->action . ' issue',
             'extras' => array(
                 'id' => $issue->id,
                 'number' => $issue->number,

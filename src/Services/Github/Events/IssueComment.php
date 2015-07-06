@@ -15,7 +15,7 @@ class IssueComment extends EventAbstract
             'author' => array(
                 'login' => $comment->user->login
             ),
-            'body' => $comment->user->login . ' ' . $dataObject->action . ' issue comment',
+            'body' => $dataObject->action . ' issue comment',
             'extras' => array(
                 'id' => $comment->id,
                 'issue_id' => $issue->id,
