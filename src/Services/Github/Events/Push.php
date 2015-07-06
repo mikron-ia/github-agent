@@ -8,12 +8,27 @@ class Push extends EventAbstract
     protected function prepareMessages($dataObject)
     {
         $messages = array();
+        $extras = $this->getExtrasData($push);
 
         foreach ($dataObject->commits as $commit) {
-            array_push($messages, $this->getArrayFromCommit($commit));
+            $commitArray = $this->getArrayFromCommit($commit);
+            array_push($commitArray['exstras'], $extras);
+            array_push($messages, $commitArray);
         }
 
         return $messages;
+    }
+
+    private function getExtrasData($push)
+    {
+        return array(
+            'branch' => $push->ref,
+            'repository' => array(
+                'id' => $push->repository->id,
+                'name' => $push->repository->name,
+                'full_name' => $push->repository->full_name,
+            ),
+        );
     }
 
     protected function getArrayFromCommit($commit)
