@@ -14,7 +14,7 @@ class TravisData extends ServiceAbstract
 
     protected function prepareData($data)
     {
-        return array(
+        $message = array(
             'type' => 'travis',
             'timestamp' => $data->finished_at,
             'author' => array(
@@ -36,5 +36,7 @@ class TravisData extends ServiceAbstract
                 )
             )
         );
+
+        return array($message);
     }
 }
