@@ -16,13 +16,25 @@ class TravisData extends ServiceAbstract
     {
         return array(
             'type' => 'travis',
-            'timestamp' => $data->committed_at,
+            'timestamp' => $data->finished_at,
             'author' => array(
                 'name' => $data->committer_name,
                 'email' => $data->committer_email
             ),
-            'body' => '',
-            'extras' => json_decode($data, true)
+            'body' => 'The Travis CI build',
+            'extras' => array(
+                'build_url' => $data->build_url,
+                'number_build' => $data->number,
+                'type' => $data->type,
+                'state' => $data->state,
+                'pull_request_number' => $data->pull_request_number ? $data->pull_request_number : '',
+                'compare_url' => $data->compare_url ? $data->compare_url : '',
+                'repository' => array(
+                    'name' => $data->repository->name,
+                    'owner' => $data->repository->owner,
+                    'branch' => $data->branch
+                )
+            )
         );
     }
 }
