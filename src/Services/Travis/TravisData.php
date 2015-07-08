@@ -14,7 +14,7 @@ class TravisData extends ServiceAbstract
 
     protected function prepareData($data)
     {
-        return array(
+        $message = array(
             'type' => 'travis',
             'timestamp' => $data->finished_at,
             'author' => array(
@@ -27,14 +27,16 @@ class TravisData extends ServiceAbstract
                 'number_build' => $data->number,
                 'type' => $data->type,
                 'state' => $data->state,
-                'pull_request_number' => $data->pull_request_number ? $data->pull_request_number : '',
-                'compare_url' => $data->compare_url ? $data->compare_url : '',
+                'git_number' => $data->type == "push" ? $data->commit : $data->pull_request_number,
+                'git_url' => $data->compare_url,
                 'repository' => array(
                     'name' => $data->repository->name,
-                    'owner' => $data->repository->owner,
+                    'owner' => $data->repository->owner_name,
                     'branch' => $data->branch
                 )
             )
         );
+
+        return array($message);
     }
 }
