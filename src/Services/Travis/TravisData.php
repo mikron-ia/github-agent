@@ -31,7 +31,7 @@ class TravisData extends ServiceAbstract
                 'git_url' => $data->compare_url,
                 'repository' => array(
                     'name' => $data->repository->name,
-                    'owner' => $data->repository->owner,
+                    'owner' => $data->repository->owner_name,
                     'branch' => $data->branch
                 )
             )
