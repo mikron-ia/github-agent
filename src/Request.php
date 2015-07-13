@@ -12,7 +12,7 @@ class Request
     public function __construct(array $server, $payload = "")
     {
         $this->server = $server;
-        $this->payload = $this->setPayload($payload);
+        $this->payload = $payload;
     }
 
     public function isPostMethod()
@@ -44,17 +44,5 @@ class Request
     public function getHeaders()
     {
         return $this->server;
-    }
-
-    private function setPayload($payload)
-    {
-        $payloadOutput = $payload;
-
-        if(isset($this->server['CONTENT_TYPE']) && $this->server['CONTENT_TYPE'] === 'application/x-www-form-urlencoded') {
-            $data = urldecode($payload);
-            $payloadOutput = explode('=', $data)[1];
-        }
-
-        return $payloadOutput;
     }
 }
