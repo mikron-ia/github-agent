@@ -68,13 +68,13 @@ class Packet
             }
         }
 
-        if ($errors) {
+        if (!empty($errors)) {
             foreach ($errors as $uri => $error) {
                 trigger_error('Errors in transmission for ' . $uri . ': ' . $error, E_USER_WARNING);
             }
         }
 
-        if ($results) {
+        if (!empty($results)) {
             foreach ($results as $uri => $result) {
                 $response = json_decode($result);
                 if ($response->message!=='OK') {

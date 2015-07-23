@@ -7,7 +7,7 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\ServiceNotFoundException;
 
 class ServiceFactory
 {
-    static public function create($serviceName, $request)
+    public static function create($serviceName, $request)
     {
         try {
             /* Caution: full namespace path is necessary for class_exists() to work correctly */
