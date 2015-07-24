@@ -51,6 +51,16 @@ class PacketTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function sendingPacketReturnsArrayPackage()
+    {
+        $result = $this->packet->send('test-url');
+        $this->assertArrayHasKey('metadata', $result);
+        $this->assertArrayHasKey('data', $result);
+    }
+
+    /**
+     * @test
+     */
     public function packetHasCorrectStructure()
     {
         $result = $this->packet->getPacket();

@@ -77,10 +77,14 @@ class Packet
         if (!empty($results)) {
             foreach ($results as $uri => $result) {
                 $response = json_decode($result);
-                if ($response->message!=='OK') {
+                if (empty($response)) {
+                    trigger_error('Errors in transmission for ' . $uri . ': ' . 'Response is empty' , E_USER_WARNING);
+                } else if($response->message!=='OK') {
                     trigger_error('Response from ' . $uri . ': ' . json_encode($response->message), E_USER_NOTICE);
                 }
             }
         }
+
+        return $this->packetArray;
     }
 }

@@ -17,6 +17,16 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function decoderReturnCorrectValue()
+    {
+        $json = '{"test": "works"}';
+        $request = new Request($_SERVER, $json);
+        $this->assertEquals(json_decode($json), $request->getDecodedPayload());
+    }
+
+    /**
+     * @test
+     */
     public function payloadIsMatching()
     {
         $testString = "STRING";

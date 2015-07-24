@@ -1,5 +1,6 @@
 <?php
 
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubData;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\Push;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\CommitComment;
 use FP\Larmo\Agents\WebHookAgent\Services\Github\Events\PullRequest;
@@ -61,6 +62,15 @@ class GithubEventsTest extends BaseEventsTest
         $expectedResult = json_decode($this->loadFile(dirname(__FILE__).'/OutputData/github-issue_comment.json'), true);
 
         $this->assertEquals($expectedResult, $issueComment->getMessages());
+    }
+
+    /**
+     * @test
+     */
+    public function emptyEventTypeShouldThrownError()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        new GithubData(array(), array());
     }
 }
 

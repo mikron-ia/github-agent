@@ -18,4 +18,16 @@ class ScrutinizerTest extends BaseEventsTest
 
         $this->assertEquals($expectedResult, $scrutinizer->getData());
     }
+
+    /**
+     * @test
+     */
+    public function scrutinizerWrongEventShouldThrownError()
+    {
+        $this->setExpectedException('FP\Larmo\Agents\WebHookAgent\Exceptions\EventTypeNotFoundException');
+
+        $dataObject = $this->getDataObjectFromJson(dirname(__FILE__).'/InputData/scrutinizer.json');
+        $dataObject->state = "error";
+        new ScrutinizerData($dataObject);
+    }
 }
