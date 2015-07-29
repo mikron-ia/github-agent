@@ -1,0 +1,19 @@
+[
+  {
+    "type": "gitlab.merge_request_open",
+    "timestamp": "2013-12-03T17:23:34Z",
+    "author": {
+      "login": "root",
+      "name": "Administrator"
+    },
+    "body": "open merge request",
+    "extras": {
+      "id": 99,
+      "number": 1,
+      "title": "MS-Viewport",
+      "body": "",
+      "url": "http://example.com/diaspora/merge_requests/1",
+      "state": "opened"
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "type": "gitlab.comment_commit",
+    "timestamp": "2015-05-17 18:08:09 UTC",
+    "author": {
+      "name": "Adminstrator",
+      "login": "root"
+    },
+    "body": "added comment",
+    "extras": {
+      "id": 1243,
+      "url": "http://example.com/gitlab-org/gitlab-test/commit/cfe32cf61b73a0d5e9f13e774abde7ff789b1660#note_1243",
+      "body": "This is a commit comment. How does this work?",
+      "repository": {
+        "name": "Gitlab Test",
+        "url": "http://example.com/gitlab-org/gitlab-test"
+      },
+      "commit": {
+        "url": "http://example.com/gitlab-org/gitlab-test/commit/cfe32cf61b73a0d5e9f13e774abde7ff789b1660",
+        "id": "cfe32cf61b73a0d5e9f13e774abde7ff789b1660"
+      }
+    }
+  }
+]

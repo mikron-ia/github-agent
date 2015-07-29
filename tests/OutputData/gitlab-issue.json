@@ -1,0 +1,19 @@
+[
+  {
+    "type": "gitlab.issue_open",
+    "timestamp": "2013-12-03T17:15:43Z",
+    "author": {
+      "login": "root",
+      "name": "Administrator"
+    },
+    "body": "open issue",
+    "extras": {
+      "id": 301,
+      "number": 23,
+      "title": "New API: create/update/delete file",
+      "body": "Create new API for manipulations with repository",
+      "url": "http://example.com/diaspora/issues/23",
+      "state": "opened"
+    }
+  }
+]

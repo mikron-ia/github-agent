@@ -1,0 +1,25 @@
+[
+  {
+    "type": "gitlab.comment_mergerequest",
+    "timestamp": "2015-05-17 18:21:36 UTC",
+    "author": {
+      "name": "Administrator",
+      "login": "root"
+    },
+    "body": "added comment",
+    "extras": {
+      "id": 1244,
+      "url": "http://example.com/gitlab-org/gitlab-test/merge_requests/1#note_1244",
+      "body": "This MR needs work.",
+      "repository": {
+        "name": "Gitlab Test",
+        "url": "http://example.com/gitlab-org/gitlab-test"
+      },
+      "merge_request": {
+        "id": 7,
+        "number": 1,
+        "title": "Tempora et eos debitis quae laborum et."
+      }
+    }
+  }
+]

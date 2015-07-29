@@ -10,7 +10,7 @@ It is a WebHooks Agent for open source project *Larmo*.
 ## Supported services
 - [Github](#github) (events: push, commit comment, issues, issue comment, pull request)
 - [Bitbucket](#bitbucket) (events: push, issues, issue comment)
-- [Gitlab](#gitlab) (event: push)
+- [Gitlab](#gitlab) (event: push, tag, comments, issues, merge requests)
 - [Travis CI](#travis-c)
 - [Scrutinizer CI](#scrutinizer-ci) (event: completed)
 
