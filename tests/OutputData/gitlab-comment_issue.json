@@ -1,0 +1,25 @@
+[
+  {
+    "type": "gitlab.comment_issue",
+    "timestamp": "2015-05-17 17:06:40 UTC",
+    "author": {
+      "name": "Adminstrator",
+      "login": "root"
+    },
+    "body": "added comment",
+    "extras": {
+      "id": 1241,
+      "url": "http://example.com/gitlab-org/gitlab-test/issues/17#note_1241",
+      "body": "Hello world",
+      "repository": {
+        "name": "Gitlab Test",
+        "url": "http://example.com/gitlab-org/gitlab-test"
+      },
+      "issue": {
+        "id": 92,
+        "number": 17,
+        "title": "test"
+      }
+    }
+  }
+]

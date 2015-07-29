@@ -1,0 +1,18 @@
+[
+  {
+    "type": "gitlab.dataObject",
+    "author": {
+      "name": "John Smith"
+    },
+    "body": "pushed tag",
+    "extras": {
+      "ref": "refs/tags/v1.0.0",
+      "before": "0000000000000000000000000000000000000000",
+      "after": "82b3d5ae55f7080f1e6022629cdb57bfae7cccc7",
+      "repository": {
+        "name": "jsmith",
+        "url": "http://example.com/jsmith/example"
+      }
+    }
+  }
+]

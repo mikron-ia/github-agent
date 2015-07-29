@@ -4,13 +4,18 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
 class Push extends EventAbstract
 {
-
     protected function prepareMessages($dataObject)
     {
         $messages = array();
 
         foreach ($dataObject->commits as $commit) {
-            array_push($messages, $this->getArrayFromCommit($commit));
+            $commitArray = $this->getArrayFromCommit($commit);
+            $commitArray['extras']['repository'] = array(
+                'name' => $dataObject->repository->name,
+                'url' => $dataObject->repository->homepage
+            );
+
+            array_push($messages, $commitArray);
         }
 
         return $messages;
@@ -20,12 +25,12 @@ class Push extends EventAbstract
     {
         return array(
             'type' => 'gitlab.commit',
-            'timestamp' => strtotime($commit->timestamp),
+            'timestamp' => $commit->timestamp,
             'author' => array(
                 'name' => $commit->author->name,
                 'email' => $commit->author->email
             ),
-            'body' => $commit->author->name . ' added commit: "' . $commit->message . '"',
+            'body' => 'added commit',
             'extras' => array(
                 'id' => $commit->id,
                 'body' => $commit->message,
