@@ -1,0 +1,17 @@
+[
+  {
+    "type": "github.create_tag",
+    "author": {
+      "login": "baxterthehacker"
+    },
+    "body": "created tag",
+    "extras": {
+      "ref": "simple-tag",
+      "repository": {
+        "name": "public-repo",
+        "full_name": "baxterthehacker/public-repo",
+        "owner": "baxterthehacker"
+      }
+    }
+  }
+]

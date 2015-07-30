@@ -1,0 +1,17 @@
+[
+  {
+    "type": "github.watch_started",
+    "author": {
+      "login": "baxterthehacker"
+    },
+    "body": "started watching repository",
+    "extras": {
+      "action": "started",
+      "repository": {
+        "name": "public-repo",
+        "full_name": "baxterthehacker/public-repo",
+        "owner": "baxterthehacker"
+      }
+    }
+  }
+]
