@@ -22,3 +22,6 @@ deploy:
   on:
     repo: mejt/larmo-webhooks-agent
     php: 5.6
+
+notifications:
+  webhooks: http://morning-escarpment-1297.herokuapp.com/travis
