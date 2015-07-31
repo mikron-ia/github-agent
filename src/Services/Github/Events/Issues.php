@@ -10,7 +10,7 @@ class Issues extends EventAbstract
 
         $message = array(
             'type' => 'github.issue_' . $dataObject->action,
-            'timestamp' => $issue->updated_at,
+            'timestamp' => $issue->created_at,
             'author' => array(
                 'login' => $issue->user->login
             ),

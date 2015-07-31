@@ -21,3 +21,4 @@ deploy:
   app: morning-escarpment-1297
   on:
     repo: mejt/larmo-webhooks-agent
+    php: 5.6

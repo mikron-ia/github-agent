@@ -11,7 +11,7 @@ class PullRequestReviewComment extends EventAbstract
 
         $message = array(
             'type' => 'github.pull_request_review_comment_' . $dataObject->action,
-            'timestamp' => $comment->updated_at,
+            'timestamp' => $comment->created_at,
             'author' => array(
                 'login' => $comment->user->login
             ),

@@ -1,0 +1,29 @@
+[
+  {
+    "type": "github.deployment_status",
+    "timestamp": "2015-05-05T23:40:39Z",
+    "author": {
+      "login": "baxterthehacker"
+    },
+    "body": "deployment",
+    "extras": {
+      "deployment": {
+        "id": 710692,
+        "sha": "9049f1265b7d61be4a8904a9a27120d2064dab3b",
+        "ref": "master",
+        "task": "deploy",
+        "environment": "production"
+      },
+      "deployment_status": {
+        "state": "success",
+        "id": 1115122,
+        "description": null
+      },
+      "repository": {
+        "name": "public-repo",
+        "full_name": "baxterthehacker/public-repo",
+        "owner": "baxterthehacker"
+      }
+    }
+  }
+]
