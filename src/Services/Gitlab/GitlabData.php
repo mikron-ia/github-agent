@@ -6,11 +6,12 @@ use FP\Larmo\Agents\WebHookAgent\Services\ServiceAbstract;
 
 class GitlabData extends ServiceAbstract
 {
-    public function __construct($data, $requestHeaders = null)
+    protected $serviceName = 'gitlab';
+    protected $eventHeader = 'X-Gitlab-Event';
+
+    public function __construct($payload, $requestHeaders = null)
     {
-        $this->serviceName = 'gitlab';
-        $this->eventHeader = 'X-Gitlab-Event';
-        $this->eventType = $data->object_kind;
-        $this->data = $this->prepareData($data);
+        $this->eventType = $payload->object_kind;
+        $this->data = $this->prepareData($payload);
     }
 }

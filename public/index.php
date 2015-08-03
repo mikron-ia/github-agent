@@ -22,7 +22,7 @@ $response['status'] = 'error';
 $response['message'] = '';
 
 try {
-    if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/x-www-form-urlencoded') {
+    if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/x-www-form-urlencoded') {
         $input = $_POST['payload'];
     } else {
         $input = file_get_contents('php://input');

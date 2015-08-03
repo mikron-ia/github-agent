@@ -8,23 +8,29 @@ abstract class ServiceAbstract implements ServiceDataInterface {
     protected $eventHeader;
     protected $eventType;
 
+    public function __construct($payload, $requestHeaders = null)
+    {
+        $this->eventType = $this->getEventType($requestHeaders);
+        $this->data = $this->prepareData($payload);
+    }
+
     protected function getEventType($requestHeaders)
     {
         $key = $this->eventHeader;
-        if(is_array($requestHeaders) && array_key_exists($key, $requestHeaders)) {
+        if (isset($key) && is_array($requestHeaders) && array_key_exists($key, $requestHeaders)) {
             return $requestHeaders[$key];
         }
 
         return null;
     }
 
-    protected function prepareData($data)
+    protected function prepareData($payload)
     {
         if ($this->eventType) {
             $eventClass = $this->getEventClass();
 
-            if (class_exists($eventClass)) {
-                $event = new $eventClass($data);
+            if (class_exists($eventClass) && $eventClass) {
+                $event = new $eventClass($payload);
                 return $event->getMessages();
             }
         }

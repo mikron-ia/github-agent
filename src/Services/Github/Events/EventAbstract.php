@@ -18,7 +18,7 @@ abstract class EventAbstract implements EventInterface
     private function setRepositoryInfo($data)
     {
         $repository = $data->repository;
-        if(!isset($repository)) {
+        if (!isset($repository)) {
             return null;
         }
 

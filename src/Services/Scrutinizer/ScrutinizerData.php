@@ -7,17 +7,12 @@ use FP\Larmo\Agents\WebHookAgent\Exceptions\EventTypeNotFoundException;
 
 class ScrutinizerData extends ServiceAbstract
 {
-    public function __construct($data, $requestHeaders = null)
-    {
-        $this->serviceName = 'scrutinizer';
-        $this->eventHeader = 'X-Scrutinizer-Event';
-        $this->eventType = $this->getEventType($requestHeaders);
-        $this->data = $this->prepareData($data);
-    }
+    protected $serviceName = 'scrutinizer';
+    protected $eventHeader = 'X-Scrutinizer-Event';
 
     protected function prepareData($data)
     {
-        if($data->state === 'completed') {
+        if ($data->state === 'completed') {
             $diff = $data->_embedded->index_diff;
 
             $message = array(

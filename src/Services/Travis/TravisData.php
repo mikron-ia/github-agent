@@ -6,11 +6,7 @@ use FP\Larmo\Agents\WebHookAgent\Services\ServiceAbstract;
 
 class TravisData extends ServiceAbstract
 {
-    public function __construct($data, $requestHeaders = null)
-    {
-        $this->serviceName = 'travis';
-        $this->data = $this->prepareData($data);
-    }
+    protected $serviceName = 'travis';
 
     protected function prepareData($data)
     {
