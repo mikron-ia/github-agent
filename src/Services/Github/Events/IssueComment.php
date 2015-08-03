@@ -22,7 +22,8 @@ class IssueComment extends EventAbstract
                 'issue_number' => $issue->number,
                 'issue_title' => $issue->title,
                 'body' => $comment->body,
-                'url' => $comment->html_url
+                'url' => $comment->html_url,
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

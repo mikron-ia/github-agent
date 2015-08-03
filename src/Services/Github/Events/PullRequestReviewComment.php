@@ -21,7 +21,8 @@ class PullRequestReviewComment extends EventAbstract
                 'body' => $comment->body,
                 'pull_request_number' => $pullRequest->number,
                 'pull_request_url' => $pullRequest->html_url,
-                'url' => $comment->html_url
+                'url' => $comment->html_url,
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

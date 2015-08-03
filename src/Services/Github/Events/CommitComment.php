@@ -20,8 +20,9 @@ class CommitComment extends EventAbstract
                 'id' => $comment->id,
                 'body' => $comment->body,
                 'url' => $comment->html_url,
-                'commit_id' => $comment->commit_id
-            )
+                'commit_id' => $comment->commit_id,
+                'repository' => $this->getRepositoryInfo()
+            ),
         );
 
         return array($message);

@@ -19,11 +19,7 @@ class Fork extends EventAbstract
                     'full_name' => $dataObject->forkee->full_name,
                     'owner' => $dataObject->forkee->owner->login
                 ),
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

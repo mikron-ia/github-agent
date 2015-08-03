@@ -21,11 +21,7 @@ class Deployment extends EventAbstract
                     'task' => $dataObject->deployment->task,
                     'environment' => $dataObject->deployment->environment
                 ),
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

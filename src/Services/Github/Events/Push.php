@@ -4,31 +4,18 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
 class Push extends EventAbstract
 {
+    private $branch;
 
     protected function prepareMessages($dataObject)
     {
         $messages = array();
-        $extras = $this->getExtrasData($dataObject);
+        $this->branch = str_replace('refs/heads/', '', $dataObject->ref);
 
         foreach ($dataObject->commits as $commit) {
-            $commitArray = $this->getArrayFromCommit($commit);
-            $commitArray['extras'] = $commitArray['extras'] + $extras;
-            array_push($messages, $commitArray);
+            array_push($messages, $this->getArrayFromCommit($commit));
         }
 
         return $messages;
-    }
-
-    private function getExtrasData($push)
-    {
-        return array(
-            'branch' => str_replace('refs/heads/', '', $push->ref),
-            'repository' => array(
-                'id' => $push->repository->id,
-                'name' => $push->repository->name,
-                'full_name' => $push->repository->full_name,
-            ),
-        );
     }
 
     protected function getArrayFromCommit($commit)
@@ -50,9 +37,10 @@ class Push extends EventAbstract
                     'modified' => $commit->modified
                 ),
                 'body' => $commit->message,
-                'url' => $commit->url
+                'url' => $commit->url,
+                'branch' => $this->branch,
+                'repository' => $this->getRepositoryInfo()
             )
         );
     }
-
 }

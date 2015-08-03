@@ -14,11 +14,7 @@ class Gollum extends EventAbstract
             'body' => 'deployment',
             'extras' => array(
                 'pages' => json_decode(json_encode($dataObject->pages), true),
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

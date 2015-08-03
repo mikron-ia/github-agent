@@ -14,11 +14,7 @@ class Watch extends EventAbstract
             'body' => $dataObject->action . ' watching repository',
             'extras' => array(
                 'action' => $dataObject->action,
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

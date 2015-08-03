@@ -20,8 +20,9 @@ class Issues extends EventAbstract
                 'number' => $issue->number,
                 'title' => $issue->title,
                 'body' => $issue->body,
-                'url' => $issue->html_url
-            )
+                'url' => $issue->html_url,
+                'repository' => $this->getRepositoryInfo()
+            ),
         );
 
         return array($message);

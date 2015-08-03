@@ -15,11 +15,7 @@ class Create extends EventAbstract
             'extras' => array(
                 'ref' => $dataObject->ref,
                 'description' => $dataObject->description,
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

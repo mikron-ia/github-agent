@@ -12,7 +12,12 @@
       "issue_number": 2,
       "issue_title": "sasa",
       "body": "aaaaaaaaaaaasasa",
-      "url": "https://github.com/test/test-hooks-repo/issues/2#issuecomment-114112195"
+      "url": "https://github.com/test/test-hooks-repo/issues/2#issuecomment-114112195",
+      "repository": {
+        "name": "test-hooks-repo",
+        "full_name": "test/test-hooks-repo",
+        "owner": "test"
+      }
     }
   }
 ]
