@@ -31,9 +31,7 @@ class Packet
 
     public function send($uri)
     {
-        $packetJson = json_encode($this->packetArray);
-
-        if(!$uri) {
+        if (!$uri) {
             trigger_error("No target URIs specified in configuration. Sending will NOT proceed.", E_USER_WARNING);
             throw new InvalidConfigurationException;
         }
@@ -44,14 +42,22 @@ class Packet
             $targets = $uri;
         }
 
+        $response = $this->sendDataToHosts($targets);
+        $this->triggerErrors($response['errors']);
+        $this->triggerAlertsIfResultNotComplete($response['results']);
+
+        return $this->packetArray;
+    }
+
+    private function sendDataToHosts($targets)
+    {
+        $output = ['errors' => [], 'results' => []];
+        $packetJson = json_encode($this->packetArray);
         $header = [
             'accept: */*',
             'Content-Type: application/json',
             'Accept-Charset: utf-8',
         ];
-
-        $errors = [];
-        $results = [];
 
         foreach ($targets as $targetUri) {
             try {
@@ -62,29 +68,34 @@ class Packet
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $packetJson);
                 $curl_response = curl_exec($curl);
                 curl_close($curl);
-                $results[$targetUri] = $curl_response;
+                $output['results'][$targetUri] = $curl_response;
             } catch (\Exception $e) {
-                $errors[] = $e->getMessage();
+                $output['errors'][] = $e->getMessage();
             }
         }
 
+        return $output;
+    }
+
+    private function triggerErrors($errors) {
         if (!empty($errors)) {
             foreach ($errors as $uri => $error) {
                 trigger_error('Errors in transmission for ' . $uri . ': ' . $error, E_USER_WARNING);
             }
         }
+    }
 
+    private function triggerAlertsIfResultNotComplete($results)
+    {
         if (!empty($results)) {
             foreach ($results as $uri => $result) {
                 $response = json_decode($result);
                 if (empty($response)) {
                     trigger_error('Errors in transmission for ' . $uri . ': ' . 'Response is empty' , E_USER_WARNING);
-                } else if($response->message!=='OK') {
+                } else if ($response->message!=='OK') {
                     trigger_error('Response from ' . $uri . ': ' . json_encode($response->message), E_USER_NOTICE);
                 }
             }
         }
-
-        return $this->packetArray;
     }
 }
