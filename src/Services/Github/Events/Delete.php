@@ -14,11 +14,7 @@ class Delete extends EventAbstract
             'body' => 'created ' . $dataObject->ref_type,
             'extras' => array(
                 'ref' => $dataObject->ref,
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

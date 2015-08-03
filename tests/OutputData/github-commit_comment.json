@@ -1,1 +1,21 @@
-[{"type":"github.created_commit_comment","timestamp":"2015-06-21T13:20:37Z","author":{"login":"test"},"body":"created commit comment","extras":{"id":10000000,"body":"asa","url":"https:\/\/github.com\/test\/test-hooks-repo\/commit\/23c85aa2a6bfed4f08c0029e1796d186ec680d2d#commitcomment-10000000","commit_id":"23c85aa2a6bfed4f08c0029e1796d186ec680d2d"}}]
+[
+  {
+    "type": "github.created_commit_comment",
+    "timestamp": "2015-06-21T13:20:37Z",
+    "author": {
+      "login": "test"
+    },
+    "body": "created commit comment",
+    "extras": {
+      "id": 10000000,
+      "body": "asa",
+      "url": "https://github.com/test/test-hooks-repo/commit/23c85aa2a6bfed4f08c0029e1796d186ec680d2d#commitcomment-10000000",
+      "commit_id": "23c85aa2a6bfed4f08c0029e1796d186ec680d2d",
+      "repository": {
+        "name": "test-hooks-repo",
+        "full_name": "test/test-hooks-repo",
+        "owner": "test"
+      }
+    }
+  }
+]

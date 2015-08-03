@@ -26,11 +26,7 @@ class DeploymentStatus extends EventAbstract
                     'id' => $dataObject->deployment_status->id,
                     'description' => $dataObject->deployment_status->description
                 ),
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'full_name' => $dataObject->repository->full_name,
-                    'owner' => $dataObject->repository->owner->login
-                )
+                'repository' => $this->getRepositoryInfo()
             )
         );
 

@@ -11,7 +11,12 @@
       "number": 2,
       "title": "sasa",
       "body": "dddd",
-      "url": "https://github.com/test/test-hooks-repo/issues/2"
+      "url": "https://github.com/test/test-hooks-repo/issues/2",
+      "repository": {
+        "name": "test-hooks-repo",
+        "full_name": "test/test-hooks-repo",
+        "owner": "test"
+      }
     }
   }
 ]

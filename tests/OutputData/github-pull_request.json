@@ -11,7 +11,12 @@
       "number": 3,
       "title": "Elo",
       "body": "",
-      "url": "https://github.com/test/test-hooks-repo/pull/3"
+      "url": "https://github.com/test/test-hooks-repo/pull/3",
+      "repository": {
+        "name": "test-hooks-repo",
+        "full_name": "test/test-hooks-repo",
+        "owner": "test"
+      }
     }
   }
 ]

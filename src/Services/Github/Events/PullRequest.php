@@ -20,7 +20,8 @@ class PullRequest extends EventAbstract
                 'number' => $pullRequest->number,
                 'title' => $pullRequest->title,
                 'body' => $pullRequest->body,
-                'url' => $pullRequest->html_url
+                'url' => $pullRequest->html_url,
+                'repository' => $this->getRepositoryInfo()
             )
         );
 
