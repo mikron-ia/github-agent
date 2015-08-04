@@ -2,6 +2,8 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
 
+use FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\BitbucketEvent;
+
 /**
  * Class Push
  * @package FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events
@@ -12,7 +14,7 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
  * to be intentional behaviour of BitBucket API
  *
  */
-class RepoPush extends EventAbstract
+class RepoPush extends BitbucketEvent
 {
     protected function prepareMessages($data)
     {

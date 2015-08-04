@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
 
-class IssueUpdated extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\BitbucketEvent;
+
+class IssueUpdated extends BitbucketEvent
 {
     protected function prepareMessages($data)
     {
