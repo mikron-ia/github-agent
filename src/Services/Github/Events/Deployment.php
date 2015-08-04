@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Deployment extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
+
+class Deployment extends GithubEvent
 {
     protected function prepareMessages($dataObject)
     {

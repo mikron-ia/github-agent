@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Push extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
+
+class Push extends GithubEvent
 {
     private $branch;
 

@@ -1,22 +1,18 @@
 <?php
 
-namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
+namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab;
 
-use FP\Larmo\Agents\WebHookAgent\Services\EventInterface;
+use FP\Larmo\Agents\WebHookAgent\Services\EventAbstract;
 
-abstract class EventAbstract implements EventInterface
+abstract class GitlabEvent extends EventAbstract
 {
-    private $messages;
-    protected $type;
-
-    public function __construct($data)
+    protected function prepareRepositoryData($repository)
     {
-        $this->messages = $this->prepareMessages($data);
-    }
-
-    public function getMessages()
-    {
-        return $this->messages;
+        return array(
+            'name' => $repository->name,
+            'full_name' => $repository->name,
+            'owner' => null,
+        );
     }
 
     protected function prepareMessages($dataObject)

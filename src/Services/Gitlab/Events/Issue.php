@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
-class Issue extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Gitlab\GitlabEvent;
+
+class Issue extends GitlabEvent
 {
     protected $type = 'issue';
 }

@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
-class Push extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Gitlab\GitlabEvent;
+
+class Push extends GitlabEvent
 {
     protected function prepareMessages($dataObject)
     {

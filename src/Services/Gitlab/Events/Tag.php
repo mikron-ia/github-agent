@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
-class Tag extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Gitlab\GitlabEvent;
+
+class Tag extends GitlabEvent
 {
     protected function prepareMessages($dataObject)
     {

@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class PullRequestReviewComment extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
+
+class PullRequestReviewComment extends GithubEvent
 {
     protected function prepareMessages($dataObject)
     {
