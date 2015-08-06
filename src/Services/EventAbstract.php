@@ -2,7 +2,7 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services;
 
-abstract class EventAbstract
+abstract class EventAbstract implements EventInterface
 {
     private $messages;
     private $repositoryInfo;
@@ -11,6 +11,7 @@ abstract class EventAbstract
     {
         $this->repositoryInfo = $this->setRepositoryInfo($data);
         $this->messages = $this->prepareMessages($data);
+        $this->prepareInternalData($data);
     }
 
     private function setRepositoryInfo($data)
@@ -36,6 +37,44 @@ abstract class EventAbstract
         return $this->messages;
     }
 
-    abstract protected function prepareMessages($data);
+    protected function prepareMessages($data)
+    {
+        $messages = array();
+
+        foreach ($data as $row) {
+            array_push($messages, $this->prepareSingleMessage($row));
+        }
+
+        return $messages;
+    }
+
+    final protected function prepareSingleMessage($data)
+    {
+        $message = [
+            'type' => $this->prepareType($data),
+            'timestamp' => $this->prepareTimeStamp($data),
+            'author' => $this->prepareAuthor($data),
+            'body' => $this->prepareBody($data),
+            'extras' => $this->prepareExtras($data)
+        ];
+
+        return $message;
+    }
+
+    protected function prepareInternalData($data)
+    {
+
+    }
+
     abstract protected function prepareRepositoryData($repository);
+
+    abstract protected function prepareType($data);
+
+    abstract protected function prepareBody($data);
+
+    abstract protected function prepareTimeStamp($data);
+
+    abstract protected function prepareAuthor($data);
+
+    abstract protected function prepareExtras($data);
 }
