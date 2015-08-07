@@ -15,32 +15,51 @@ abstract class GitlabEvent extends EventAbstract
         );
     }
 
-    protected function prepareMessages($dataObject)
+    protected function prepareMessages($data)
     {
-        $attributes = $dataObject->object_attributes;
-
-        $message = array(
-            'type' => 'gitlab.' . $this->type . '_' . $attributes->action,
-            'timestamp' => $attributes->updated_at,
-            'author' => array(
-                'login' => $dataObject->user->username,
-                'name' => $dataObject->user->name
-            ),
-            'body' => $attributes->action . ' ' . $this->getTypeAsString(),
-            'extras' => array(
-                'id' => $attributes->id,
-                'number' => $attributes->iid,
-                'title' => $attributes->title,
-                'body' => $attributes->description,
-                'url' => $attributes->url,
-                'state' => $attributes->state
-            )
-        );
-
-        return array($message);
+        return [$this->prepareSingleMessage($data)];
     }
 
     private function getTypeAsString() {
         return implode(' ', explode('_', $this->type));
+    }
+
+    protected function prepareType($data)
+    {
+        $attributes = $data->object_attributes;
+        return 'gitlab.' . $this->type . '_' . $attributes->action;
+    }
+
+    protected function prepareBody($data)
+    {
+        $attributes = $data->object_attributes;
+        return $attributes->action . ' ' . $this->getTypeAsString();
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        $attributes = $data->object_attributes;
+        return $attributes->updated_at;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->user->username,
+            'name' => $data->user->name
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        $attributes = $data->object_attributes;
+        return [
+            'id' => $attributes->id,
+            'number' => $attributes->iid,
+            'title' => $attributes->title,
+            'body' => $attributes->description,
+            'url' => $attributes->url,
+            'state' => $attributes->state
+        ];
     }
 }

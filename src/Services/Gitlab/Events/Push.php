@@ -11,7 +11,7 @@ class Push extends GitlabEvent
         $messages = array();
 
         foreach ($dataObject->commits as $commit) {
-            $commitArray = $this->getArrayFromCommit($commit);
+            $commitArray = $this->prepareSingleMessage($commit);
             $commitArray['extras']['repository'] = array(
                 'name' => $dataObject->repository->name,
                 'url' => $dataObject->repository->homepage
@@ -23,22 +23,35 @@ class Push extends GitlabEvent
         return $messages;
     }
 
-    protected function getArrayFromCommit($commit)
+    protected function prepareType($data)
     {
-        return array(
-            'type' => 'gitlab.commit',
-            'timestamp' => $commit->timestamp,
-            'author' => array(
-                'name' => $commit->author->name,
-                'email' => $commit->author->email
-            ),
-            'body' => 'added commit',
-            'extras' => array(
-                'id' => $commit->id,
-                'body' => $commit->message,
-                'url' => $commit->url
-            )
-        );
+        return 'gitlab.commit';
     }
 
+    protected function prepareBody($data)
+    {
+        return 'added commit';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return $data->timestamp;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'name' => $data->author->name,
+            'email' => $data->author->email
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'id' => $data->id,
+            'body' => $data->message,
+            'url' => $data->url
+        ];
+    }
 }

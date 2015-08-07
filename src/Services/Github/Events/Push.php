@@ -14,35 +14,49 @@ class Push extends GithubEvent
         $this->branch = str_replace('refs/heads/', '', $dataObject->ref);
 
         foreach ($dataObject->commits as $commit) {
-            array_push($messages, $this->getArrayFromCommit($commit));
+            array_push($messages, $this->prepareSingleMessage($commit));
         }
 
         return $messages;
     }
 
-    protected function getArrayFromCommit($commit)
+    protected function prepareType($data)
     {
-        return array(
-            'type' => 'github.commit',
-            'timestamp' => $commit->timestamp,
-            'author' => array(
-                'name' => $commit->author->name,
-                'email' => $commit->author->email,
-                'login' => $commit->author->username
-            ),
-            'body' => 'added commit',
-            'extras' => array(
-                'id' => $commit->id,
-                'files' => array(
-                    'added' => $commit->added,
-                    'removed' => $commit->removed,
-                    'modified' => $commit->modified
-                ),
-                'body' => $commit->message,
-                'url' => $commit->url,
-                'branch' => $this->branch,
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+        return 'github.commit';
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'added commit';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return $data->timestamp;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'name' => $data->author->name,
+            'email' => $data->author->email,
+            'login' => $data->author->username
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'id' => $data->id,
+            'files' => [
+                'added' => $data->added,
+                'removed' => $data->removed,
+                'modified' => $data->modified
+            ],
+            'body' => $data->message,
+            'url' => $data->url,
+            'branch' => $this->branch,
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

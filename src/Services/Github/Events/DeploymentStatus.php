@@ -6,32 +6,49 @@ use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
 
 class DeploymentStatus extends GithubEvent
 {
-    protected function prepareMessages($dataObject)
+    protected function prepareMessages($data)
     {
-        $message = array(
-            'type' => 'github.deployment_status',
-            'timestamp' => $dataObject->deployment_status->created_at,
-            'author' => array(
-                'login' => $dataObject->sender->login
-            ),
-            'body' => 'deployment',
-            'extras' => array(
-                'deployment' => array(
-                    'id' => $dataObject->deployment->id,
-                    'sha' => $dataObject->deployment->sha,
-                    'ref' => $dataObject->deployment->ref,
-                    'task' => $dataObject->deployment->task,
-                    'environment' => $dataObject->deployment->environment
-                ),
-                'deployment_status' => array(
-                    'state' => $dataObject->deployment_status->state,
-                    'id' => $dataObject->deployment_status->id,
-                    'description' => $dataObject->deployment_status->description
-                ),
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+        return [$this->prepareSingleMessage($data)];
+    }
 
-        return array($message);
+    protected function prepareType($data)
+    {
+        return 'github.deployment_status';
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'deployment';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return $data->deployment_status->created_at;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->sender->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'deployment' => array(
+                'id' => $data->deployment->id,
+                'sha' => $data->deployment->sha,
+                'ref' => $data->deployment->ref,
+                'task' => $data->deployment->task,
+                'environment' => $data->deployment->environment
+            ),
+            'deployment_status' => array(
+                'state' => $data->deployment_status->state,
+                'id' => $data->deployment_status->id,
+                'description' => $data->deployment_status->description
+            ),
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

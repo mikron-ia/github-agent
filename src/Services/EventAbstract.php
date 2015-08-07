@@ -39,13 +39,7 @@ abstract class EventAbstract implements EventInterface
 
     protected function prepareMessages($data)
     {
-        $messages = array();
-
-        foreach ($data as $row) {
-            array_push($messages, $this->prepareSingleMessage($row));
-        }
-
-        return $messages;
+        return [$this->prepareSingleMessage($data)];
     }
 
     final protected function prepareSingleMessage($data)
