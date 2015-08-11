@@ -23,7 +23,7 @@ class Gollum extends GithubEvent
 
     protected function prepareTimeStamp($data)
     {
-        return null;
+        return date('c');
     }
 
     protected function prepareAuthor($data)

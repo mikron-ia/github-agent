@@ -47,7 +47,9 @@ class GitlabEventsTest extends BaseEventsTest
     public function tagReturnsCorrectData()
     {
         $tag = new Tag($this->getDataObjectFromJson(dirname(__FILE__).'/InputData/gitlab-tag.json'));
-        $expectedResult = json_decode($this->loadFile(dirname(__FILE__).'/OutputData/gitlab-tag.json'), true);
+        $now = date('Y-m-d H:i:s T',time());
+        $expectedFromFile = str_replace('{now}',$now,$this->loadFile(dirname(__FILE__).'/OutputData/gitlab-tag.json'));
+        $expectedResult = json_decode($expectedFromFile, true);
 
         $this->assertEquals($expectedResult, $tag->getMessages());
     }

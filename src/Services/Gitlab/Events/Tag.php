@@ -23,7 +23,7 @@ class Tag extends GitlabEvent
 
     protected function prepareTimeStamp($data)
     {
-        return null;
+        return date('Y-m-d H:i:s T',time());
     }
 
     protected function prepareAuthor($data)
