@@ -35,7 +35,6 @@ class TravisEvent extends EventAbstract
 
     protected function prepareExtras($data)
     {
-        $attributes = $data->object_attributes;
         return [
             'build_url' => $data->build_url,
             'number_build' => $data->number,

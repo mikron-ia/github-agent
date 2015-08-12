@@ -15,11 +15,6 @@ abstract class GitlabEvent extends EventAbstract
         );
     }
 
-    protected function prepareMessages($data)
-    {
-        return [$this->prepareSingleMessage($data)];
-    }
-
     private function getTypeAsString() {
         return implode(' ', explode('_', $this->type));
     }
