@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/mejt/larmo-webhooks-agent/badges/gpa.svg)](https://codeclimate.com/github/mejt/larmo-webhooks-agent)
 [![Test Coverage](https://codeclimate.com/github/mejt/larmo-webhooks-agent/badges/coverage.svg)](https://codeclimate.com/github/mejt/larmo-webhooks-agent/coverage)
 
-It is a WebHooks Agent for open source project *Larmo*.
+This is a WebHooks Agent for open source project *Larmo*.
 
 ## Supported services
 - [Github](#github) (events: push, commit comment, issues, issue comment, pull request, deployment, deployment status, create, delete, fork, gollum)
@@ -15,24 +15,24 @@ It is a WebHooks Agent for open source project *Larmo*.
 - [Scrutinizer CI](#scrutinizer-ci) (event: completed)
 
 ## To do
-- Add support to more services:
+- Add support for more services:
     - Jira
     - Trello
 
 ## Installation guide
-Agent is simple PHP application ready to deploy for different servers.
+The WebhookAgent is a simple PHP application ready to be deploy to different servers.
 
 ### Deploying
 #### Use case: Deploying to Heroku 
-*The best way with usage Heroku Toolbelt https://toolbelt.heroku.com/*
+*The best way - use Heroku Toolbelt https://toolbelt.heroku.com/*
 
-1. Create empty git repository in this directory (if isn't exists), type in console `git init`
+1. Create empty git repository in this directory (if does not exists), type in console `git init`
 2. Create heroku app, run command in console `heroku apps:create`
 3. Install composer dependencies, type in console `composer install`
 4. Commit all files, use command: `git commit -am "Save files for deploy"`
 5. Deploy to heroku, run command: `git push heroku master`
 
-After deploying process you can check that your site is running thanks command `heroku open`.
+After deploying process you can verify that your site is running using the command `heroku open`.
 
 ### Activate WebHooks in supported services
 #### GitHub
@@ -68,5 +68,5 @@ Add webhook (https://bitbucket.org/USER-NAME/REPO-NAME/admin/addon/admin/bitbuck
 
 #### Scrutinizer CI
 1. Copy your deployed agent URL.
-2. Go to settings your repository on Scrutinizer and find 'Service Hooks' (example url: https://scrutinizer-ci.com/g/USER/REPO-NAME/settings/service-hooks).
+2. Go to your repository settings on Scrutinizer and find 'Service Hooks' (example url: https://scrutinizer-ci.com/g/USER/REPO-NAME/settings/service-hooks).
 3. Click 'Add web-hook' button and paste agent URL. Save settings.
