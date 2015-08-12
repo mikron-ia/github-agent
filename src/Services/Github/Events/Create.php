@@ -2,23 +2,43 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Create extends EventAbstract
-{
-    protected function prepareMessages($dataObject)
-    {
-        $message = array(
-            'type' => 'github.create_' . $dataObject->ref_type,
-            'author' => array(
-                'login' => $dataObject->sender->login
-            ),
-            'body' => 'created ' . $dataObject->ref_type,
-            'extras' => array(
-                'ref' => $dataObject->ref,
-                'description' => $dataObject->description,
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
 
-        return array($message);
+class Create extends GithubEvent
+{
+    protected function prepareMessages($data)
+    {
+        return [$this->prepareSingleMessage($data)];
+    }
+
+    protected function prepareType($data)
+    {
+        return 'github.create_' . $data->ref_type;
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'created ' . $data->ref_type;
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return date('c');
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->sender->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'ref' => $data->ref,
+            'description' => $data->description,
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

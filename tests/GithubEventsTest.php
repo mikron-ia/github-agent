@@ -78,7 +78,7 @@ class GithubEventsTest extends BaseEventsTest
     public function createEventReturnsCorrectData()
     {
         $create = new Create($this->getDataObjectFromJson(dirname(__FILE__).'/InputData/github-create_tag.json'));
-        $expectedResult = json_decode($this->loadFile(dirname(__FILE__).'/OutputData/github-create_tag.json'), true);
+        $expectedResult = json_decode(str_replace('{now}',date('c'),$this->loadFile(dirname(__FILE__).'/OutputData/github-create_tag.json')), true);
 
         $this->assertEquals($expectedResult, $create->getMessages());
     }
@@ -89,7 +89,7 @@ class GithubEventsTest extends BaseEventsTest
     public function deleteEventReturnsCorrectData()
     {
         $delete = new Delete($this->getDataObjectFromJson(dirname(__FILE__).'/InputData/github-delete_tag.json'));
-        $expectedResult = json_decode($this->loadFile(dirname(__FILE__).'/OutputData/github-delete_tag.json'), true);
+        $expectedResult = json_decode(str_replace('{now}',date('c'),$this->loadFile(dirname(__FILE__).'/OutputData/github-delete_tag.json')), true);
 
         $this->assertEquals($expectedResult, $delete->getMessages());
     }
@@ -100,7 +100,7 @@ class GithubEventsTest extends BaseEventsTest
     public function watchEventReturnsCorrectData()
     {
         $delete = new Watch($this->getDataObjectFromJson(dirname(__FILE__).'/InputData/github-watch.json'));
-        $expectedResult = json_decode($this->loadFile(dirname(__FILE__).'/OutputData/github-watch.json'), true);
+        $expectedResult = json_decode(str_replace('{now}',date('c'),$this->loadFile(dirname(__FILE__).'/OutputData/github-watch.json')), true);
 
         $this->assertEquals($expectedResult, $delete->getMessages());
     }
@@ -144,7 +144,7 @@ class GithubEventsTest extends BaseEventsTest
     public function gollumEventReturnsCorrectData()
     {
         $event = new Gollum($this->getDataObjectFromJson(dirname(__FILE__) . '/InputData/github-gollum.json'));
-        $expectedResult = json_decode($this->loadFile(dirname(__FILE__) . '/OutputData/github-gollum.json'), true);
+        $expectedResult = json_decode(str_replace('{now}',date('c'),$this->loadFile(dirname(__FILE__).'/OutputData/github-gollum.json')), true);
 
         $this->assertEquals($expectedResult, $event->getMessages());
     }

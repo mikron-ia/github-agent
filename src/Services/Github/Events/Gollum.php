@@ -2,22 +2,42 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Gollum extends EventAbstract
-{
-    protected function prepareMessages($dataObject)
-    {
-        $message = array(
-            'type' => 'github.gollum',
-            'author' => array(
-                'login' => $dataObject->sender->login
-            ),
-            'body' => 'deployment',
-            'extras' => array(
-                'pages' => json_decode(json_encode($dataObject->pages), true),
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
 
-        return array($message);
+class Gollum extends GithubEvent
+{
+    protected function prepareMessages($data)
+    {
+        return [$this->prepareSingleMessage($data)];
+    }
+
+    protected function prepareType($data)
+    {
+        return 'github.gollum';
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'deployment';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return date('c');
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->sender->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'pages' => json_decode(json_encode($data->pages), true),
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

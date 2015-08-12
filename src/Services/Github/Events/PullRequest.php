@@ -2,29 +2,49 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class PullRequest extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
+
+class PullRequest extends GithubEvent
 {
-    protected function prepareMessages($dataObject)
+    protected function prepareMessages($data)
     {
-        $pullRequest = $dataObject->pull_request;
+        return [$this->prepareSingleMessage($data)];
+    }
 
-        $message = array(
-            'type' => 'github.pull_request_' . $dataObject->action,
-            'timestamp' => $pullRequest->created_at,
-            'author' => array(
-                'login' => $pullRequest->user->login
-            ),
-            'body' => $dataObject->action . ' pull request',
-            'extras' => array(
-                'id' => $pullRequest->id,
-                'number' => $pullRequest->number,
-                'title' => $pullRequest->title,
-                'body' => $pullRequest->body,
-                'url' => $pullRequest->html_url,
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+    protected function prepareType($data)
+    {
+        return 'github.pull_request_' . $data->action;
+    }
 
-        return array($message);
+    protected function prepareBody($data)
+    {
+        return $data->action . ' pull request';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        $pullRequest = $data->pull_request;
+        return $pullRequest->created_at;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        $pullRequest = $data->pull_request;
+        return [
+            'login' => $pullRequest->user->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        $pullRequest = $data->pull_request;
+        return [
+            'id' => $pullRequest->id,
+            'number' => $pullRequest->number,
+            'title' => $pullRequest->title,
+            'body' => $pullRequest->body,
+            'url' => $pullRequest->html_url,
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

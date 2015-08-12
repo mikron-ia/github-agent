@@ -1,6 +1,7 @@
 [
   {
     "type": "github.watch_started",
+    "timestamp": "{now}",
     "author": {
       "login": "baxterthehacker"
     },

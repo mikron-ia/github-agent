@@ -2,28 +2,47 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
-class Tag extends EventAbstract
-{
-    protected function prepareMessages($dataObject)
-    {
-        $message = array(
-            'type' => 'gitlab.dataObject',
-            'author' => array(
-                'name' => $dataObject->user_name,
-            ),
-            'body' => 'pushed tag',
-            'extras' => array(
-                'ref' => $dataObject->ref,
-                'before' => $dataObject->before,
-                'after' => $dataObject->after,
-                'repository' => array(
-                    'name' => $dataObject->repository->name,
-                    'url' => $dataObject->repository->homepage
-                )
-            )
-        );
+use FP\Larmo\Agents\WebHookAgent\Services\Gitlab\GitlabEvent;
 
-        return array($message);
+class Tag extends GitlabEvent
+{
+    protected function prepareMessages($data)
+    {
+        return [$this->prepareSingleMessage($data)];
     }
 
+    protected function prepareType($data)
+    {
+        return 'gitlab.dataObject';
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'pushed tag';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return date('Y-m-d H:i:s T',time());
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'name' => $data->user_name,
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'ref' => $data->ref,
+            'before' => $data->before,
+            'after' => $data->after,
+            'repository' => array(
+                'name' => $data->repository->name,
+                'url' => $data->repository->homepage
+            )
+        ];
+    }
 }

@@ -2,34 +2,57 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Trello\Events;
 
-class Message extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Trello\TrelloEvent;
+
+class Message extends TrelloEvent
 {
 
     protected function prepareMessages($dataObject)
     {
-        $messageArray = $this->getArrayFromMessage($dataObject);
+        $messageArray = $this->prepareSingleMessage($dataObject);
+
         return [$messageArray];
     }
 
-    protected function getArrayFromMessage($message)
+    protected function prepareType($data)
     {
-        $model = $message->model;
-        $action = $message->action;
+        return 'trello.message';
+    }
 
-        return array(
-            'type' => 'trello.message',
-            'timestamp' => strtotime($action->date),
-            'author' => array(
-                'name' => $action->memberCreator->fullName,
-                'login' => $action->memberCreator->username
-            ),
-            'body' => $action->memberCreator->fullName.' performed '.$action->type,
-            'extras' => array(
-                'id' => $action->id,
-                'url' => $model->url,
-                'action' => $action->type
-            )
-        );
+    protected function prepareBody($data)
+    {
+        $action = $data->action;
+
+        return $action->memberCreator->fullName . ' performed ' . $action->type;
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        $action = $data->action;
+
+        return strtotime($action->date);
+    }
+
+    protected function prepareAuthor($data)
+    {
+        $action = $data->action;
+
+        return [
+            'name' => $action->memberCreator->fullName,
+            'login' => $action->memberCreator->username
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        $model = $data->model;
+        $action = $data->action;
+
+        return [
+            'id' => $action->id,
+            'url' => $model->url,
+            'action' => $action->type
+        ];
     }
 
 }

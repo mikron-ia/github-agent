@@ -1,6 +1,7 @@
 [
   {
     "type": "github.create_tag",
+    "timestamp": "{now}",
     "author": {
       "login": "baxterthehacker"
     },

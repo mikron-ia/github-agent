@@ -2,22 +2,42 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Watch extends EventAbstract
-{
-    protected function prepareMessages($dataObject)
-    {
-        $message = array(
-            'type' => 'github.watch_' . $dataObject->action,
-            'author' => array(
-                'login' => $dataObject->sender->login
-            ),
-            'body' => $dataObject->action . ' watching repository',
-            'extras' => array(
-                'action' => $dataObject->action,
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
 
-        return array($message);
+class Watch extends GithubEvent
+{
+    protected function prepareMessages($data)
+    {
+        return [$this->prepareSingleMessage($data)];
+    }
+
+    protected function prepareType($data)
+    {
+        return 'github.watch_' . $data->action;
+    }
+
+    protected function prepareBody($data)
+    {
+        return $data->action . ' watching repository';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return date('c');
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->sender->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'action' => $data->action,
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

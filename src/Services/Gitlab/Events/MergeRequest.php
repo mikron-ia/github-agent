@@ -2,7 +2,9 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Gitlab\Events;
 
-class MergeRequest extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Gitlab\GitlabEvent;
+
+class MergeRequest extends GitlabEvent
 {
     protected $type = 'merge_request';
 }

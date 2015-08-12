@@ -2,6 +2,8 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
 
+use FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\BitbucketEvent;
+
 /**
  * Class Push
  * @package FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events
@@ -12,35 +14,52 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Bitbucket\Events;
  * to be intentional behaviour of BitBucket API
  *
  */
-class RepoPush extends EventAbstract
+class RepoPush extends BitbucketEvent
 {
     protected function prepareMessages($data)
     {
         $messages = array();
 
         foreach ($data->push->changes as $change) {
-            array_push($messages, $this->getArrayFromCommit($change->new->target));
+            $commit = $change->new->target;
+            array_push($messages, $this->prepareSingleMessage($commit));
         }
 
         return $messages;
     }
 
-    private function getArrayFromCommit($commit)
+    protected function prepareType($data)
     {
-        return array(
-            'type' => 'bitbucket.commit',
-            'timestamp' => strtotime($commit->date),
-            'author' => array(
-                'name' => $commit->author->user->display_name,
-                'email' => $commit->author->raw,
-                'login' => $commit->author->user->username
-            ),
-            'body' => $commit->author->user->display_name . ' added commit: "' . $commit->message . '"',
-            'extras' => array(
-                'body' => $commit->message,
-                'url' => $commit->links->html->href,
-                'hash' => $commit->hash
-            )
-        );
+        return 'bitbucket.commit';
     }
+
+    protected function prepareBody($data)
+    {
+        return $data->author->user->display_name . ' added commit: "' . $data->message . '"';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return strtotime($data->date);
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'name' => $data->author->user->display_name,
+            'email' => $data->author->raw,
+            'login' => $data->author->user->username
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'body' => $data->message,
+            'url' => $data->links->html->href,
+            'hash' => $data->hash
+        ];
+    }
+
+
 }

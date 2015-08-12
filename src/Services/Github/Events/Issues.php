@@ -2,29 +2,49 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Issues extends EventAbstract
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
+
+class Issues extends GithubEvent
 {
-    protected function prepareMessages($dataObject)
+    protected function prepareMessages($data)
     {
-        $issue = $dataObject->issue;
+        return [$this->prepareSingleMessage($data)];
+    }
 
-        $message = array(
-            'type' => 'github.issue_' . $dataObject->action,
-            'timestamp' => $issue->created_at,
-            'author' => array(
-                'login' => $issue->user->login
-            ),
-            'body' => $dataObject->action . ' issue',
-            'extras' => array(
-                'id' => $issue->id,
-                'number' => $issue->number,
-                'title' => $issue->title,
-                'body' => $issue->body,
-                'url' => $issue->html_url,
-                'repository' => $this->getRepositoryInfo()
-            ),
-        );
+    protected function prepareType($data)
+    {
+        return 'github.issue_' . $data->action;
+    }
 
-        return array($message);
+    protected function prepareBody($data)
+    {
+        return $data->action . ' issue';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        $issue = $data->issue;
+        return $issue->created_at;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        $issue = $data->issue;
+        return [
+            'login' => $issue->user->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        $issue = $data->issue;
+        return [
+            'id' => $issue->id,
+            'number' => $issue->number,
+            'title' => $issue->title,
+            'body' => $issue->body,
+            'url' => $issue->html_url,
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

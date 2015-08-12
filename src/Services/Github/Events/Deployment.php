@@ -2,29 +2,48 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github\Events;
 
-class Deployment extends EventAbstract
-{
-    protected function prepareMessages($dataObject)
-    {
-        $message = array(
-            'type' => 'github.deployment',
-            'timestamp' => $dataObject->deployment->created_at,
-            'author' => array(
-                'login' => $dataObject->sender->login
-            ),
-            'body' => 'deployment',
-            'extras' => array(
-                'deployment' => array(
-                    'id' => $dataObject->deployment->id,
-                    'sha' => $dataObject->deployment->sha,
-                    'ref' => $dataObject->deployment->ref,
-                    'task' => $dataObject->deployment->task,
-                    'environment' => $dataObject->deployment->environment
-                ),
-                'repository' => $this->getRepositoryInfo()
-            )
-        );
+use FP\Larmo\Agents\WebHookAgent\Services\Github\GithubEvent;
 
-        return array($message);
+class Deployment extends GithubEvent
+{
+    protected function prepareMessages($data)
+    {
+        return [$this->prepareSingleMessage($data)];
+    }
+
+    protected function prepareType($data)
+    {
+        return 'github.deployment';
+    }
+
+    protected function prepareBody($data)
+    {
+        return 'deployment';
+    }
+
+    protected function prepareTimeStamp($data)
+    {
+        return $data->deployment->created_at;
+    }
+
+    protected function prepareAuthor($data)
+    {
+        return [
+            'login' => $data->sender->login
+        ];
+    }
+
+    protected function prepareExtras($data)
+    {
+        return [
+            'deployment' => array(
+                'id' => $data->deployment->id,
+                'sha' => $data->deployment->sha,
+                'ref' => $data->deployment->ref,
+                'task' => $data->deployment->task,
+                'environment' => $data->deployment->environment
+            ),
+            'repository' => $this->getRepositoryInfo()
+        ];
     }
 }

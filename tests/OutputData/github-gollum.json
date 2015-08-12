@@ -1,6 +1,7 @@
 [
   {
     "type": "github.gollum",
+    "timestamp": "{now}",
     "author": {
       "login": "jasonrudolph"
     },
