@@ -18,7 +18,7 @@ abstract class SecuritySignatureAbstract
 
     final protected function getSecretFromConfig(array $secrets)
     {
-        if(empty($secrets[$this->serviceName])) {
+        if (empty($secrets[$this->serviceName])) {
             return null;
         }
 

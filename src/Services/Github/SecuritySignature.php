@@ -21,7 +21,7 @@ class SecuritySignature extends SecuritySignatureAbstract
 
     protected function requestHasCorrectSecuritySignature(Request $request)
     {
-        if(($signature = $this->getSignatureFromHeader($request->getHeaders())) !== null) {
+        if (($signature = $this->getSignatureFromHeader($request->getHeaders())) !== null) {
             // Signature in header has format "ALGORITHM=HASH" (ex. sha1=fe767cff7b00733332eb18e5229a8ef3f65cfa06)
             $hashArray = explode('=', $signature);
             if(isset($hashArray[1]) && $hashArray[1] === hash_hmac($hashArray[0], $request->getPayload(), $this->secret)) {
