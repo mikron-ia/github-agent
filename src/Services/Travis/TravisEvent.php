@@ -2,6 +2,7 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Travis;
 
+use FP\Larmo\Agents\WebHookAgent\Services\EventAbstract;
 
 class TravisEvent extends EventAbstract
 {
