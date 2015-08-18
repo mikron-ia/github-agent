@@ -1,0 +1,24 @@
+[
+  {
+    "type": "travis",
+    "timestamp": "2015-08-18T13:15:43Z",
+    "author": {
+      "name": "User",
+      "email": "user@mail.test"
+    },
+    "body": "The Travis CI build",
+    "extras": {
+      "build_url": "https://travis-ci.org/test/larmo/builds/76103134",
+      "number_build": "1",
+      "type": "push",
+      "state": "passed",
+      "git_number": "232c9a3ccb1b14f6c04fa874a0c8efe560d76af5",
+      "git_url": "https://github.com/test/larmo/compare/1039bd9ed18a...232c9a3ccb1b",
+      "repository": {
+        "name": "larmo",
+        "owner": "test",
+        "branch": "master"
+      }
+    }
+  }
+]
