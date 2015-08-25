@@ -20,7 +20,7 @@ class IssueUpdated extends BitbucketEvent
     {
         $issue = $data->issue;
 
-        return $issue->reporter->display_name . ' has updated "' . $issue->title . '" issue';
+        return 'has updated "' . $issue->title . '" issue';
     }
 
     protected function prepareTimeStamp($data)

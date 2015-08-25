@@ -6,7 +6,7 @@
       "login": "username",
       "name": "User Name"
     },
-    "body": "User Name has commented on issue \"Issue Title\"",
+    "body": "has commented on issue \"Issue Title\"",
     "extras": {
       "issue_id": 1,
       "comment_id": 19231156,

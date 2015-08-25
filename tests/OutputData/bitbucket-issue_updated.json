@@ -6,7 +6,7 @@
       "login": "username",
       "name": "User Name"
     },
-    "body": "User Name has updated \"Message Title\" issue",
+    "body": "has updated \"Message Title\" issue",
     "extras": {
       "id": 1,
       "priority": "critical",

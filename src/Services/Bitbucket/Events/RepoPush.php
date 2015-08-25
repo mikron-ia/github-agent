@@ -21,7 +21,7 @@ class RepoPush extends BitbucketEvent
         $messages = array();
 
         foreach ($data->push->changes as $change) {
-            $commit = $change->new->target;
+            $commit = $change->new;
             array_push($messages, $this->prepareSingleMessage($commit));
         }
 
@@ -35,29 +35,31 @@ class RepoPush extends BitbucketEvent
 
     protected function prepareBody($data)
     {
-        return $data->author->user->display_name . ' added commit: "' . $data->message . '"';
+        return 'added commit';
     }
 
     protected function prepareTimeStamp($data)
     {
-        return strtotime($data->date);
+        return strtotime($data->target->date);
     }
 
     protected function prepareAuthor($data)
     {
         return [
-            'name' => $data->author->user->display_name,
-            'email' => $data->author->raw,
-            'login' => $data->author->user->username
+            'name' => $data->target->author->user->display_name,
+            'email' => $data->target->author->raw,
+            'login' => $data->target->author->user->username
         ];
     }
 
     protected function prepareExtras($data)
     {
         return [
-            'body' => $data->message,
-            'url' => $data->links->html->href,
-            'hash' => $data->hash
+            'body' => $data->target->message,
+            'url' => $data->target->links->html->href,
+            'hash' => $data->target->hash,
+            'branch' => $data->name,
+            'repository' => $this->getRepositoryInfo()
         ];
     }
 

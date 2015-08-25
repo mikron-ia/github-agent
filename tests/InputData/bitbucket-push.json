@@ -111,13 +111,13 @@
     }
   },
   "repository": {
-    "full_name": "username/charades-test",
+    "full_name": "username/repository-test",
     "type": "repository",
-    "name": "charades-test",
+    "name": "repository-test",
     "uuid": "{aeed2ff3-1ca2-4af5-ad6d-e5d53c8e2e2f}",
     "links": {
-      "html": {"href": "https://bitbucket.org/username/charades-test"},
-      "self": {"href": "https://bitbucket.org/api/2.0/repositories/username/charades-test"},
+      "html": {"href": "https://bitbucket.org/username/repository-test"},
+      "self": {"href": "https://bitbucket.org/api/2.0/repositories/username/repository-test"},
       "avatar": {"href": "https://bitbucket.org/username/projectname/avatar/16/"}
     },
     "owner": {

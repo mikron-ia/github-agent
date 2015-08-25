@@ -19,9 +19,8 @@ class IssueCommentCreated extends BitbucketEvent
     protected function prepareBody($data)
     {
         $issue = $data->issue;
-        $comment = $data->comment;
 
-        return $comment->user->display_name . ' has commented on issue "' . $issue->title . '"';
+        return 'has commented on issue "' . $issue->title . '"';
     }
 
     protected function prepareTimeStamp($data)
