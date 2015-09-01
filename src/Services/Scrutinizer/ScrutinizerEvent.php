@@ -2,20 +2,10 @@
 
 namespace FP\Larmo\Agents\WebHookAgent\Services\Scrutinizer;
 
-
 use FP\Larmo\Agents\WebHookAgent\Services\EventAbstract;
 
 class ScrutinizerEvent extends EventAbstract
 {
-    protected function prepareRepositoryData($repository)
-    {
-        return array(
-            'name' => $repository->name,
-            'full_name' => $repository->name,
-            'owner' => $repository->user,
-        );
-    }
-
     protected function prepareType($data)
     {
         return 'scrutinizer.' . $data->state;

@@ -5,11 +5,6 @@ namespace FP\Larmo\Agents\WebHookAgent\Services\Travis;
 
 class TravisEvent extends EventAbstract
 {
-    protected function prepareRepositoryData($repository)
-    {
-        return null;
-    }
-
     protected function prepareType($data)
     {
         return 'travis';
