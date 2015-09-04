@@ -6,11 +6,6 @@ use FP\Larmo\Agents\WebHookAgent\Services\EventAbstract;
 
 class TravisEvent extends EventAbstract
 {
-    protected function prepareRepositoryData($repository)
-    {
-        return null;
-    }
-
     protected function prepareType($data)
     {
         return 'travis';
