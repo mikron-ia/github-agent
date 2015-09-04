@@ -3,11 +3,11 @@
 namespace FP\Larmo\Agents\WebHookAgent\Services\Github;
 
 use FP\Larmo\Agents\WebHookAgent\Services\EventAbstract;
-use FP\Larmo\Agents\WebHookAgent\Services\RepositoryInfo;
+use FP\Larmo\Agents\WebHookAgent\Services\RepositoryInfo as RepositoryInfoTrait;
 
 abstract class GithubEvent extends EventAbstract
 {
-    use RepositoryInfo;
+    use RepositoryInfoTrait;
 
     public function __construct($data)
     {
